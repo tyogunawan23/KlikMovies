@@ -1,7 +1,8 @@
-package id.code.klikmovies
+package id.code.klikmovies.function.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import id.code.klikmovies.R
 
 class MainActivity : AppCompatActivity() {
 
