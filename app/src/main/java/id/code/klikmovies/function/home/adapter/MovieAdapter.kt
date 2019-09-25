@@ -42,10 +42,8 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
         fun bind (movie : Movie){
             title.text = movie.title
             val posterUrl :String = App.Companion.posterPath + movie.posterPath
-           // image.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorAccent))
-            //https://homepages.cae.wisc.edu/~ece533/images/airplane.png
             Glide.with(itemView.context)
-                .load("http://image.tmdb.org/t/p/w185//2CAL2433ZeIihfX1Hb2139CX0pW.jpg")
+                .load(posterUrl)
                 .into(image)
 
 

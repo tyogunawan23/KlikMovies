@@ -19,8 +19,8 @@ class App : Application (){
 
     companion object {
         val baseUrl : String =  "https://api.themoviedb.org/3/movie/"
-        val apiKey : String = "ed96c7b8a694e614aeaa96f3b293a611"
-        val posterPath : String = "image.tmdb.org/t/p/w185"
+        val apiKey : String = "cd14689fcbad1f976e0851a19ba2216f"
+        val posterPath : String = "https://image.tmdb.org/t/p/original"
     }
 
     private val client = OkHttpClient().newBuilder()
