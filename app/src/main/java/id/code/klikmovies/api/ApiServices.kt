@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface ApiServices {
 
-    @GET("popular?api_key=ed96c7b8a694e614aeaa96f3b293a611")
+    @GET("popular")
     fun getAllPopularMovies(): Call<ResponseBody>
 
 }
