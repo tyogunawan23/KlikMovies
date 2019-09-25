@@ -3,19 +3,23 @@ package id.code.klikmovies.function.home.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import id.code.klikmovies.App
 import id.code.klikmovies.R
 import id.code.klikmovies.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
 
-    private var movies : List<Movie>
+    lateinit var movies : List<Movie>
 
-    constructor(movies : List<Movie>){
-        this.movies = movies
+    constructor(){
+        this.movies = emptyList()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
     }
@@ -28,17 +32,23 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
         holder.bind(movies[position])
     }
 
-
 }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val title = itemView.text_title
-        private val image = itemView.image_cover
+        private val image : ImageView = itemView.image_cover
 
         fun bind (movie : Movie){
             title.text = movie.title
-           // image.
+            val posterUrl :String = App.Companion.posterPath + movie.posterPath
+           // image.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.colorAccent))
+            //https://homepages.cae.wisc.edu/~ece533/images/airplane.png
+            Glide.with(itemView.context)
+                .load("http://image.tmdb.org/t/p/w185//2CAL2433ZeIihfX1Hb2139CX0pW.jpg")
+                .into(image)
+
+
         }
 
     }

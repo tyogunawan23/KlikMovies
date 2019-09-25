@@ -12,7 +12,7 @@ class TabAdapter : FragmentPagerAdapter {
     var pages :List<Fragment>;
 
     constructor(fm: FragmentManager, behavior: Int) : super(fm, behavior) {
-        pages = listOf(TopRatesFragment(), PopularFragment(), FavoriteFragment())
+        pages = listOf( PopularFragment(), TopRatesFragment(), FavoriteFragment())
     }
 
     override fun getItem(position: Int): Fragment {
