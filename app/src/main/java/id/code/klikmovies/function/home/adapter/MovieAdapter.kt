@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import id.code.klikmovies.App
 import id.code.klikmovies.R
+import id.code.klikmovies.model.Genre
 import id.code.klikmovies.model.Movie
+import id.code.klikmovies.util.PrefManager
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
@@ -38,15 +40,39 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
 
         private val title = itemView.text_title
         private val image : ImageView = itemView.image_cover
+        private val genreText = itemView.text_genre
 
         fun bind (movie : Movie){
             title.text = movie.title
             val posterUrl :String = App.Companion.posterPath + movie.posterPath
+            val genre :String = getGenreAsString(movie.genreIds)
+            genreText.text = genre
             Glide.with(itemView.context)
                 .load(posterUrl)
                 .into(image)
 
+        }
 
+        fun  getGenreAsString (genreIds : List<Int>) : String{
+            var genreMovie : String =""
+            val genrePref : List<Genre>? = PrefManager(itemView.context).getGenreList()
+            if (genrePref != null) {
+                for (genre : Genre in genrePref){
+                    for (ids :Int  in genreIds){
+                        if (genre.id.equals(ids)){
+                            val sb = StringBuilder()
+                            if (genreMovie.isNullOrEmpty()){
+                                genreMovie = sb.append(genreMovie).append(genre.name).toString()
+                            } else {
+                                genreMovie = sb.append(genreMovie).append(", ").append(genre.name).toString()
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            return genreMovie;
         }
 
     }

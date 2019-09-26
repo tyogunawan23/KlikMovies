@@ -18,7 +18,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 class App : Application (){
 
     companion object {
-        val baseUrl : String =  "https://api.themoviedb.org/3/movie/"
+        val baseUrl : String =  "https://api.themoviedb.org/3/"
         val apiKey : String = "cd14689fcbad1f976e0851a19ba2216f"
         val posterPath : String = "https://image.tmdb.org/t/p/original"
     }

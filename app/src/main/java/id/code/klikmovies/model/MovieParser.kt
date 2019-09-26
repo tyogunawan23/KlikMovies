@@ -1,7 +1,7 @@
 package id.code.klikmovies.model
 import com.google.gson.annotations.SerializedName
 
-class MapiParser<T : BaseModel> {
+class MovieParser<T : BaseModel> {
 
     @SerializedName("page")
     var page : Int? = 0

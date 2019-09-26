@@ -13,10 +13,9 @@ import id.code.klikmovies.App
 
 import id.code.klikmovies.R
 import id.code.klikmovies.databinding.FragmentPopularBinding
-import id.code.klikmovies.model.MapiParser
+import id.code.klikmovies.model.MovieParser
 import id.code.klikmovies.model.Movie
 import id.code.klikmovies.function.home.adapter.MovieAdapter
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,12 +35,12 @@ class PopularFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recylerView.layoutManager = GridLayoutManager(context, 2)
         binding.recylerView.adapter = movieAdapter
-        App().services.getAllPopularMovies().enqueue(object  : Callback<MapiParser<Movie>> {
-            override fun onFailure(call: Call<MapiParser<Movie>>, t: Throwable) {
+        App().services.getAllPopularMovies().enqueue(object  : Callback<MovieParser<Movie>> {
+            override fun onFailure(call: Call<MovieParser<Movie>>, t: Throwable) {
                Log.d("responses", t.message)
             }
-            override fun onResponse(call: Call<MapiParser<Movie>>,
-                response: Response<MapiParser<Movie>>) {
+            override fun onResponse(call: Call<MovieParser<Movie>>,
+                                    response: Response<MovieParser<Movie>>) {
                 val movies : List<Movie> = response.body()?.results ?: emptyList()
                 movieAdapter.movies = movies
                 movieAdapter.notifyDataSetChanged()
