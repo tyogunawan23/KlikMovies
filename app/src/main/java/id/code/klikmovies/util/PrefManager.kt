@@ -39,16 +39,37 @@ class PrefManager(private val _context: Context) {
         var moviesSaved: MutableList<Movie>
         val data = pref.getString(FAVORITE, "")
         val gson = GsonBuilder().create()
-        moviesSaved = gson.fromJson(data,Array<Movie>::class.java).toMutableList()
-        moviesSaved.add(movie)
+        if (!data.isNullOrEmpty()) {
+            moviesSaved = gson.fromJson(data, Array<Movie>::class.java).toMutableList()
+            if (!moviesSaved.any{ x -> x.id == movie.id }) {
+                moviesSaved.add(movie)
+            }
+        } else {
+            moviesSaved = mutableListOf()
+            moviesSaved.add(movie)
+        }
         saveMovieFavoriteToJson(moviesSaved)
     }
 
-    fun getFavoriteMovie () : List<Movie>?{
+    fun getFavoriteMovie () : MutableList<Movie>?{
         val data = pref.getString(FAVORITE, "")
         val gson = GsonBuilder().create()
-        val movies : List<Movie> = gson.fromJson(data, Array<Movie>::class.java).toList()
+        val movies : MutableList<Movie> = gson.fromJson(data, Array<Movie>::class.java).toMutableList()
         return movies
+    }
+
+    fun removeFavoriteMovie (movieParam: Movie) :Boolean{
+        val movieSaved : MutableList<Movie>? = getFavoriteMovie()
+        if (!movieSaved.isNullOrEmpty()) {
+            for (movie: Movie in movieSaved ){
+                if (movie.id.equals(movieParam.id)){
+                    movieSaved.remove(movie)
+                    saveMovieFavoriteToJson(movieSaved)
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     fun saveMovieFavoriteToJson(movie: MutableList<Movie>?) {

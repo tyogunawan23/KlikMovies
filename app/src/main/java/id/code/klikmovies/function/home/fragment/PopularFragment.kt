@@ -21,6 +21,7 @@ import id.code.klikmovies.function.home.adapter.OnItemClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import id.code.klikmovies.util.PrefManager
 
 class PopularFragment : Fragment(), OnItemClickListener  {
 
@@ -55,8 +56,16 @@ class PopularFragment : Fragment(), OnItemClickListener  {
 
     override fun onItemClick(view: View, position: Int, movie: Movie) {
         if (view.id == R.id.image_favorite){
+            context?.let { PrefManager(it).saveMovieAsFavorite(movie) }
+
+            val savedMovie = context?.let { PrefManager(it).getFavoriteMovie()}
+
             Toast.makeText(context, "As favorite", Toast.LENGTH_SHORT).show()
         } else {
+
+            context?.let { PrefManager(it).removeFavoriteMovie(movie) }
+
+            val savedMovie = context?.let { PrefManager(it).getFavoriteMovie()}
             Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
         }
     }
