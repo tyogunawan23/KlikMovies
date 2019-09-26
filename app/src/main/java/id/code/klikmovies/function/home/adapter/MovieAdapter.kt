@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import id.code.klikmovies.App
 import id.code.klikmovies.R
 import id.code.klikmovies.model.Genre
@@ -18,12 +16,15 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
 
     lateinit var movies : List<Movie>
+    var listener : OnItemClickListener? = null
 
-    constructor(){
+    constructor(listener : OnItemClickListener){
         this.movies = emptyList()
+        this.listener = listener
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
+        return ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false), this.listener)
     }
 
     override fun getItemCount(): Int {
@@ -36,11 +37,16 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
 
 }
 
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(itemView: View, onClick: OnItemClickListener?) : RecyclerView.ViewHolder(itemView) {
 
         private val title = itemView.text_title
         private val image : ImageView = itemView.image_cover
         private val genreText = itemView.text_genre
+        private var listener : OnItemClickListener? = null
+
+        init {
+            this.listener = onClick
+        }
 
         fun bind (movie : Movie){
             title.text = movie.title
@@ -50,6 +56,10 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
             Glide.with(itemView.context)
                 .load(posterUrl)
                 .into(image)
+
+            itemView.setOnClickListener {
+                listener?.onItemClick(adapterPosition, movie)
+            }
 
         }
 
@@ -76,3 +86,7 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
         }
 
     }
+
+public interface OnItemClickListener {
+    fun onItemClick(position : Int, movie : Movie)
+}

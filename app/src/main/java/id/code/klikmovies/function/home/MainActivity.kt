@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_F
 import id.code.klikmovies.App
 import id.code.klikmovies.R
 import id.code.klikmovies.databinding.ActivityMainBinding
+import id.code.klikmovies.function.base.BaseActivity
 import id.code.klikmovies.function.home.adapter.TabAdapter
 import id.code.klikmovies.model.GenreParser
 import id.code.klikmovies.util.PrefManager
@@ -14,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :BaseActivity() {
 
     lateinit var binding : ActivityMainBinding
 

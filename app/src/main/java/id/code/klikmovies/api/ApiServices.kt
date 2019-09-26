@@ -5,6 +5,7 @@ import id.code.klikmovies.model.MovieParser
 import id.code.klikmovies.model.Movie
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ApiServices {
 
@@ -13,6 +14,9 @@ interface ApiServices {
 
     @GET("movie/popular")
     fun getAllPopularMovies(): Call<MovieParser<Movie>>
+
+    @GET ("movie/{movie_id}")
+    fun getMovieDetail(@Path(value = "movie_id") id :String ): Call <Movie>
 
 
 }

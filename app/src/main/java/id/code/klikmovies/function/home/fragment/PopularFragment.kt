@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import id.code.klikmovies.App
@@ -16,14 +17,16 @@ import id.code.klikmovies.databinding.FragmentPopularBinding
 import id.code.klikmovies.model.MovieParser
 import id.code.klikmovies.model.Movie
 import id.code.klikmovies.function.home.adapter.MovieAdapter
+import id.code.klikmovies.function.home.adapter.OnItemClickListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PopularFragment : Fragment() {
+class PopularFragment : Fragment(), OnItemClickListener  {
+
 
     lateinit var binding : FragmentPopularBinding
-    var movieAdapter = MovieAdapter()
+    lateinit var movieAdapter : MovieAdapter;
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,6 +36,7 @@ class PopularFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        movieAdapter = MovieAdapter(this)
         binding.recylerView.layoutManager = GridLayoutManager(context, 2)
         binding.recylerView.adapter = movieAdapter
         App().services.getAllPopularMovies().enqueue(object  : Callback<MovieParser<Movie>> {
@@ -47,6 +51,10 @@ class PopularFragment : Fragment() {
             }
         })
 
+    }
+
+    override fun onItemClick(position: Int, movie: Movie) {
+     Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
     }
 
 
