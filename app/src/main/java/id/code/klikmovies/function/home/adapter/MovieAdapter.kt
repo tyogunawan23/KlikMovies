@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.code.klikmovies.App
@@ -43,6 +44,8 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
         private val image : ImageView = itemView.image_cover
         private val genreText = itemView.text_genre
         private var listener : OnItemClickListener? = null
+        private var linearParent : LinearLayout = itemView.linear_parent
+        private var imgLove : ImageView = itemView.image_favorite
 
         init {
             this.listener = onClick
@@ -57,8 +60,12 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
                 .load(posterUrl)
                 .into(image)
 
-            itemView.setOnClickListener {
-                listener?.onItemClick(adapterPosition, movie)
+            linearParent.setOnClickListener {
+                listener?.onItemClick(linearParent,adapterPosition, movie)
+            }
+
+            imgLove.setOnClickListener {
+                listener?.onItemClick(imgLove,adapterPosition, movie)
             }
 
         }
@@ -88,5 +95,5 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
     }
 
 public interface OnItemClickListener {
-    fun onItemClick(position : Int, movie : Movie)
+    fun onItemClick(view: View, position : Int, movie : Movie)
 }

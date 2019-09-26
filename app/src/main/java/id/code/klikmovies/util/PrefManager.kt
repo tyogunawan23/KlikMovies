@@ -39,7 +39,7 @@ class PrefManager(private val _context: Context) {
         var moviesSaved: MutableList<Movie>
         val data = pref.getString(FAVORITE, "")
         val gson = GsonBuilder().create()
-        moviesSaved = gson.fromJson(data, MutableList()<Movie>::class.java).toMutableList()
+        moviesSaved = gson.fromJson(data,Array<Movie>::class.java).toMutableList()
         moviesSaved.add(movie)
         saveMovieFavoriteToJson(moviesSaved)
     }

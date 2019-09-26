@@ -53,8 +53,12 @@ class PopularFragment : Fragment(), OnItemClickListener  {
 
     }
 
-    override fun onItemClick(position: Int, movie: Movie) {
-     Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
+    override fun onItemClick(view: View, position: Int, movie: Movie) {
+        if (view.id == R.id.image_favorite){
+            Toast.makeText(context, "As favorite", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
+        }
     }
 
 
