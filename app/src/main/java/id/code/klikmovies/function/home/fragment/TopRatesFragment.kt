@@ -55,6 +55,7 @@ class TopRatesFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnR
                 PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
             }
             movieAdapter.notifyDataSetChanged()
+            App().sendBroadcastFavoriteChanged(activity!!)
         } else {
             Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
         }

@@ -1,6 +1,8 @@
 package id.code.klikmovies
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
 import id.code.klikmovies.api.ApiServices
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -53,6 +55,16 @@ class App : Application (){
     val services: ApiServices = retrofit.create(ApiServices::class.java)
 
 
+    public fun sendBroadcastFavoriteChanged (act: Activity){
+        try {
+            val intent = Intent()
+            intent.action = App.Companion.BROADCAST_FAVORITE_CHANGED
+            act.sendBroadcast(intent)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+    }
 
 
 }

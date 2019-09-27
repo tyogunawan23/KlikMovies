@@ -16,8 +16,9 @@ import id.code.klikmovies.function.home.adapter.MovieAdapter
 import id.code.klikmovies.function.home.adapter.OnItemClickListener
 import id.code.klikmovies.model.Movie
 import id.code.klikmovies.util.PrefManager
+import id.code.klikmovies.App
 
-class FavoriteFragment  : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+class FavoriteFragment  : Fragment(), OnItemClickListener{
 
     lateinit var binding: FragmentFavoriteBinding
     lateinit var movieAdapter: MovieAdapter;
@@ -36,7 +37,10 @@ class FavoriteFragment  : Fragment(), OnItemClickListener, SwipeRefreshLayout.On
         movieAdapter = MovieAdapter(this)
         binding.recylerView.layoutManager = GridLayoutManager(context, 2)
         binding.recylerView.adapter = movieAdapter
-        binding.swipeOnRefresh.setOnRefreshListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
         onRefresh()
     }
 
@@ -49,16 +53,15 @@ class FavoriteFragment  : Fragment(), OnItemClickListener, SwipeRefreshLayout.On
             }
             movieAdapter.movies = PrefManager(activity!!.applicationContext).getFavoriteMovie()!!
             movieAdapter.notifyDataSetChanged()
+            App().sendBroadcastFavoriteChanged(activity!!)
         } else {
             Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
         }
     }
 
-    override fun onRefresh() {
-        binding.swipeOnRefresh.isRefreshing = true
+    fun onRefresh() {
         movieAdapter.movies = PrefManager(activity!!.applicationContext).getFavoriteMovie()!!
         movieAdapter.notifyDataSetChanged()
-        binding.swipeOnRefresh.isRefreshing = false
     }
 
 

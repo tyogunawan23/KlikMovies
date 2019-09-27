@@ -31,6 +31,7 @@ class MainActivity :BaseActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.toolbar.title = getString(R.string.app_name)
+        binding.viewPager.offscreenPageLimit = 0
         binding.viewPager.adapter = TabAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this@MainActivity)
         binding.tabsLayout.setupWithViewPager(binding.viewPager)
 
