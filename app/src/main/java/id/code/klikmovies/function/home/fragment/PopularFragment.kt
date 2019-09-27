@@ -70,7 +70,7 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
         binding.swipeOnRefresh.isRefreshing = true
         App().services.getAllPopularMovies().enqueue(object : Callback<MovieParser<Movie>> {
             override fun onFailure(call: Call<MovieParser<Movie>>, t: Throwable) {
-                Log.d("responses", t.message)
+                //Log.d("responses", t.message)
                 binding.swipeOnRefresh.isRefreshing = false
             }
             override fun onResponse(

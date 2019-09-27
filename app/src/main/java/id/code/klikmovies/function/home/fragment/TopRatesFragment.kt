@@ -66,7 +66,7 @@ class TopRatesFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnR
         binding.swipeOnRefresh.isRefreshing = true
         App().services.getAllTopRatedMovies().enqueue(object : Callback<MovieParser<Movie>> {
             override fun onFailure(call: Call<MovieParser<Movie>>, t: Throwable) {
-                Log.d("responses", t.message)
+              //  Log.d("responses", t.message)
                 binding.swipeOnRefresh.isRefreshing = false
             }
             override fun onResponse(
