@@ -11,9 +11,9 @@ Teknologi dan Library yang dipakai :
 - Data Binding
 - Glide
 
-# API dan Data yang digunakan
+# API
 
-data diambil dari https://www.themoviedb.org/
+Data diambil dari https://www.themoviedb.org/
 
 
 # Author
