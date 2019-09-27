@@ -1,6 +1,7 @@
 package id.code.klikmovies.function.home.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -56,6 +57,8 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
                 PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
             }
             movieAdapter.notifyDataSetChanged()
+            sendBroadcastFavoriteChanged()
+
         } else {
             Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
         }
@@ -79,6 +82,18 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
 
             }
         })
+    }
+
+
+    fun sendBroadcastFavoriteChanged (){
+        try {
+            val intent = Intent()
+            intent.action = App.Companion.BROADCAST_FAVORITE_CHANGED
+            activity!!.sendBroadcast(intent)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
 

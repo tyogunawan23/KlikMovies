@@ -21,6 +21,7 @@ class App : Application (){
         val baseUrl : String =  "https://api.themoviedb.org/3/"
         val apiKey : String = "cd14689fcbad1f976e0851a19ba2216f"
         val posterPath : String = "https://image.tmdb.org/t/p/original"
+        val BROADCAST_FAVORITE_CHANGED = "BROADCAST_FAVORITE_CHANGED"
     }
 
     private val client = OkHttpClient().newBuilder()
