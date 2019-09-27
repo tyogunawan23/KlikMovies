@@ -17,6 +17,7 @@ import id.code.klikmovies.function.home.adapter.OnItemClickListener
 import id.code.klikmovies.model.Movie
 import id.code.klikmovies.util.PrefManager
 import id.code.klikmovies.App
+import id.code.klikmovies.function.detail.DetailActivity
 
 class FavoriteFragment  : Fragment(), OnItemClickListener{
 
@@ -54,8 +55,9 @@ class FavoriteFragment  : Fragment(), OnItemClickListener{
             movieAdapter.movies = PrefManager(activity!!.applicationContext).getFavoriteMovie()!!
             movieAdapter.notifyDataSetChanged()
             App().sendBroadcastFavoriteChanged(activity!!)
+            Toast.makeText(context, movie.title + "save tp favorite", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
+            startActivity(DetailActivity.newIntent(context, movie.id))
         }
     }
 

@@ -45,11 +45,16 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_on_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
 
             <LinearLayout
@@ -71,14 +76,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Title" />
+                            android:text="Title"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
 
                         <TextView
+                            android:id="@+id/text_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -94,12 +103,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Overview" />
+                            android:text="Overview"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/overview"
@@ -121,12 +133,15 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Release Date" />
+                            android:text="Release Date"
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
 
                         <TextView
                             android:id="@+id/textReleaseDate"
@@ -142,6 +157,8 @@
 
 
         </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

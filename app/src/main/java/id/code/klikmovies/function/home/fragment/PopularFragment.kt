@@ -25,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import id.code.klikmovies.util.PrefManager
+import id.code.klikmovies.function.detail.DetailActivity
 
 class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -59,9 +60,9 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
             }
             movieAdapter.notifyDataSetChanged()
             App().sendBroadcastFavoriteChanged(activity!!)
-
+            Toast.makeText(context, movie.title + "save tp favorite", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
+            startActivity(DetailActivity.newIntent(context, movie.id))
         }
     }
 
