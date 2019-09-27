@@ -60,6 +60,12 @@ class MovieAdapter : RecyclerView.Adapter<ItemViewHolder> {
                 .load(posterUrl)
                 .into(image)
 
+            if (PrefManager(itemView.context).isFavoriteMovie(movie)) {
+                imgLove.setImageResource(android.R.drawable.btn_star_big_on)
+            } else {
+                imgLove.setImageResource(android.R.drawable.btn_star_big_off)
+            }
+
             linearParent.setOnClickListener {
                 listener?.onItemClick(linearParent,adapterPosition, movie)
             }

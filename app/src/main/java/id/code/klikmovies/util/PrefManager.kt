@@ -24,7 +24,7 @@ class PrefManager(private val _context: Context) {
     fun getGenreList(): List<Genre>? {
         val data = pref.getString(GENRE, "")
         val gson = GsonBuilder().create()
-        val genres : List<Genre> = gson.fromJson(data, Array<Genre>::class.java).toList()
+        val genres : List<Genre>? = gson.fromJson(data, Array<Genre>::class.java).toList()
         return genres
     }
 
@@ -54,8 +54,13 @@ class PrefManager(private val _context: Context) {
     fun getFavoriteMovie () : MutableList<Movie>?{
         val data = pref.getString(FAVORITE, "")
         val gson = GsonBuilder().create()
-        val movies : MutableList<Movie> = gson.fromJson(data, Array<Movie>::class.java).toMutableList()
-        return movies
+        if (!data.isNullOrEmpty()){
+            val movies : MutableList<Movie>? = gson.fromJson(data, Array<Movie>::class.java).toMutableList()
+            return movies
+        } else {
+            return null
+        }
+
     }
 
     fun removeFavoriteMovie (movieParam: Movie) :Boolean{
@@ -67,6 +72,16 @@ class PrefManager(private val _context: Context) {
                     saveMovieFavoriteToJson(movieSaved)
                     return true
                 }
+            }
+        }
+        return false
+    }
+
+    fun isFavoriteMovie (movieParam : Movie) : Boolean {
+        val movieSaved : MutableList<Movie>? = getFavoriteMovie()
+        if (!movieSaved.isNullOrEmpty()) {
+            if (movieSaved.any{ x -> x.id == movieParam.id }) {
+                return true
             }
         }
         return false

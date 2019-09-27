@@ -52,7 +52,6 @@
                 android:id="@+id/image_favorite"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
-                android:src="@android:drawable/star_on"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
