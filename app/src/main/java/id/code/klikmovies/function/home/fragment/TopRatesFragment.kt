@@ -52,11 +52,14 @@ class TopRatesFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnR
         if (view.id == R.id.image_favorite) {
             if (PrefManager(activity!!.applicationContext).isFavoriteMovie(movie)) {
                 PrefManager(activity!!.applicationContext).removeFavoriteMovie(movie)
+                Toast.makeText(context, movie.title + " remove from favorite", Toast.LENGTH_SHORT).show()
             } else {
                 PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
+                Toast.makeText(context, movie.title + " save to favorite", Toast.LENGTH_SHORT).show()
             }
             movieAdapter.notifyDataSetChanged()
-            Toast.makeText(context, movie.title + " save to favorite", Toast.LENGTH_SHORT).show()
+            App().sendBroadcastFavoriteChanged(activity!!)
+
         } else {
             startActivity(DetailActivity.newIntent(context, movie.id))
         }

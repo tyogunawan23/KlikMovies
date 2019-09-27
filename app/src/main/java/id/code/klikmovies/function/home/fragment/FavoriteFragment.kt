@@ -49,6 +49,7 @@ class FavoriteFragment  : Fragment(), OnItemClickListener{
         if (view.id == R.id.image_favorite) {
             if (PrefManager(activity!!.applicationContext).isFavoriteMovie(movie)) {
                 PrefManager(activity!!.applicationContext).removeFavoriteMovie(movie)
+                Toast.makeText(context, movie.title + " remove from favorite", Toast.LENGTH_SHORT).show()
             } else {
                 PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
             }

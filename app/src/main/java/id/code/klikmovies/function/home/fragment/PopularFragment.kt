@@ -55,12 +55,13 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
         if (view.id == R.id.image_favorite) {
             if (PrefManager(activity!!.applicationContext).isFavoriteMovie(movie)) {
                 PrefManager(activity!!.applicationContext).removeFavoriteMovie(movie)
+                Toast.makeText(context, movie.title + " remove to favorite", Toast.LENGTH_SHORT).show()
             } else {
                 PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
+                Toast.makeText(context, movie.title + " save to favorite", Toast.LENGTH_SHORT).show()
             }
             movieAdapter.notifyDataSetChanged()
             App().sendBroadcastFavoriteChanged(activity!!)
-            Toast.makeText(context, movie.title + " save to favorite", Toast.LENGTH_SHORT).show()
         } else {
             startActivity(DetailActivity.newIntent(context, movie.id))
         }
