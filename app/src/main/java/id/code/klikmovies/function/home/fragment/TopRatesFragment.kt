@@ -2,19 +2,82 @@ package id.code.klikmovies.function.home.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import id.code.klikmovies.App
 import id.code.klikmovies.R
+import id.code.klikmovies.databinding.FragmentPopularBinding
+import id.code.klikmovies.databinding.FragmentTopRatesBinding
+import id.code.klikmovies.function.home.adapter.MovieAdapter
+import id.code.klikmovies.function.home.adapter.OnItemClickListener
+import id.code.klikmovies.model.Movie
+import id.code.klikmovies.model.MovieParser
+import id.code.klikmovies.util.PrefManager
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class TopRatesFragment : Fragment() {
+class TopRatesFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    lateinit var binding: FragmentTopRatesBinding
+    lateinit var movieAdapter: MovieAdapter;
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_top_rates, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_top_rates, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        movieAdapter = MovieAdapter(this)
+        binding.recylerView.layoutManager = GridLayoutManager(context, 2)
+        binding.recylerView.adapter = movieAdapter
+        binding.swipeOnRefresh.setOnRefreshListener(this)
+        onRefresh()
+    }
+
+    override fun onItemClick(view: View, position: Int, movie: Movie) {
+        if (view.id == R.id.image_favorite) {
+            if (PrefManager(activity!!.applicationContext).isFavoriteMovie(movie)) {
+                PrefManager(activity!!.applicationContext).removeFavoriteMovie(movie)
+            } else {
+                PrefManager(activity!!.applicationContext).saveMovieAsFavorite(movie)
+            }
+            movieAdapter.notifyDataSetChanged()
+        } else {
+            Toast.makeText(context, movie.title, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRefresh() {
+        binding.swipeOnRefresh.isRefreshing = true
+        App().services.getAllTopRatedMovies().enqueue(object : Callback<MovieParser<Movie>> {
+            override fun onFailure(call: Call<MovieParser<Movie>>, t: Throwable) {
+                Log.d("responses", t.message)
+                binding.swipeOnRefresh.isRefreshing = false
+            }
+            override fun onResponse(
+                call: Call<MovieParser<Movie>>,
+                response: Response<MovieParser<Movie>>
+            ) {
+                binding.swipeOnRefresh.isRefreshing = false
+                val movies: List<Movie> = response.body()?.results ?: emptyList()
+                movieAdapter.movies = movies
+                movieAdapter.notifyDataSetChanged()
+
+            }
+        })
     }
 
 

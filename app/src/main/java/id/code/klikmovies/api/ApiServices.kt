@@ -15,6 +15,9 @@ interface ApiServices {
     @GET("movie/popular")
     fun getAllPopularMovies(): Call<MovieParser<Movie>>
 
+    @GET("movie/top_rated")
+    fun getAllTopRatedMovies() :Call<MovieParser<Movie>>
+
     @GET ("movie/{movie_id}")
     fun getMovieDetail(@Path(value = "movie_id") id :String ): Call <Movie>
 
