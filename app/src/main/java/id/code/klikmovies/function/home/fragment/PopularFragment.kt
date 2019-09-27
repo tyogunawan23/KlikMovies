@@ -60,7 +60,7 @@ class PopularFragment : Fragment(), OnItemClickListener, SwipeRefreshLayout.OnRe
             }
             movieAdapter.notifyDataSetChanged()
             App().sendBroadcastFavoriteChanged(activity!!)
-            Toast.makeText(context, movie.title + "save tp favorite", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, movie.title + " save to favorite", Toast.LENGTH_SHORT).show()
         } else {
             startActivity(DetailActivity.newIntent(context, movie.id))
         }

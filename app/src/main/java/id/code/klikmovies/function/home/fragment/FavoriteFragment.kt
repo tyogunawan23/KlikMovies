@@ -55,7 +55,6 @@ class FavoriteFragment  : Fragment(), OnItemClickListener{
             movieAdapter.movies = PrefManager(activity!!.applicationContext).getFavoriteMovie()!!
             movieAdapter.notifyDataSetChanged()
             App().sendBroadcastFavoriteChanged(activity!!)
-            Toast.makeText(context, movie.title + "save tp favorite", Toast.LENGTH_SHORT).show()
         } else {
             startActivity(DetailActivity.newIntent(context, movie.id))
         }
